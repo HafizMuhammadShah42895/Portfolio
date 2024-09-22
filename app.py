@@ -31,15 +31,7 @@ class ContactMessage(db.Model):
 def home():
     return render_template('index.html')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/services')
-def services():
-    return render_template('services.html')
-
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact', methods=['POST'])
 def contact():
     if request.method == 'POST':
         name = request.form['name']
@@ -57,9 +49,7 @@ def contact():
         mail.send(msg)
 
         flash('Message sent successfully!', 'success')
-        return redirect(url_for('contact'))
-
-    return render_template('contact.html')
+        return redirect(url_for('home') + '#contact')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False,host='0.0.0.0')
